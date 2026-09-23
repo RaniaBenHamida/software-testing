@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Software Testing — Cours</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EFF5F0;--ink:#0E2A20;--ink-soft:#4A6A5D;--pass:#12915B;--pass-deep:#0B5F3C;
+  --fail:#DF5B41;--line:rgba(14,42,32,.14);--card:#FFFFFF;--shadow:0 1px 0 rgba(14,42,32,.06);
+  --code-bg:#0B231B;--code-ink:#D9EDE2;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#081712;--ink:#E8F3EC;--ink-soft:#8FB0A1;--pass:#3FCB8B;--pass-deep:#7FE0B4;
+    --fail:#FF8468;--line:rgba(232,243,236,.16);--card:#0F251C;--shadow:none;--code-bg:#03100B;--code-ink:#D9EDE2;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#081712;--ink:#E8F3EC;--ink-soft:#8FB0A1;--pass:#3FCB8B;--pass-deep:#7FE0B4;
+  --fail:#FF8468;--line:rgba(232,243,236,.16);--card:#0F251C;--shadow:none;--code-bg:#03100B;--code-ink:#D9EDE2;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--paper);color:var(--ink);font-family:Inter,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+mono,code,pre{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+
+/* topbar */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;
+  padding:10px clamp(12px,3vw,32px);padding-top:calc(10px + env(safe-area-inset-top,0px));
+  background:linear-gradient(to bottom,var(--paper) 62%,transparent)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(13px,1.3vw,15px);
+  padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink-soft);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;background:var(--card);overflow:hidden;flex:0 0 auto}
+.lang button{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;padding:8px 13px;border:0;background:transparent;color:var(--ink-soft);cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--pass);color:var(--paper)}
+.tabs button:focus-visible,.lang button:focus-visible{outline:3px solid var(--pass);outline-offset:2px}
+
+/* stage */
+.stage{position:relative;height:100%;width:100%;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;padding:clamp(18px,4vw,64px);padding-top:clamp(70px,10vh,104px);padding-bottom:clamp(64px,8vh,92px);overflow-y:auto}
+.slide.is-current{display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1240px;margin:0 auto;width:100%}
+.kicker{font-family:"JetBrains Mono",monospace;font-size:clamp(11px,1.1vw,13px);letter-spacing:.06em;color:var(--pass);margin:0 0 clamp(10px,1.8vh,18px)}
+h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(40px,8vw,124px);line-height:.92;letter-spacing:-.035em;margin:0}
+h1 em{font-style:normal;display:block;color:var(--pass-deep)}
+h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(26px,4.2vw,56px);line-height:1.02;letter-spacing:-.03em;margin:0 0 clamp(14px,2.6vh,30px)}
+h3{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(17px,1.9vw,24px);letter-spacing:-.02em;margin:0 0 10px}
+p{line-height:1.6}
+.lede{max-width:54ch;color:var(--ink-soft);font-size:clamp(15px,1.5vw,20px);margin:clamp(14px,2.6vh,26px) 0 0}
+.meta{display:flex;flex-wrap:wrap;gap:9px;margin-top:clamp(16px,2.8vh,28px)}
+.chip{font-family:"JetBrains Mono",monospace;font-size:12px;border:1px solid var(--line);border-radius:999px;padding:7px 13px;color:var(--ink-soft)}
+.chip b{color:var(--pass);font-weight:700}
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(16px,3vw,48px);align-items:center;max-width:1240px;margin:0 auto;width:100%}
+.art{display:flex;justify-content:center}.art svg{width:100%;max-width:320px;height:auto}
+
+/* agenda */
+.agenda{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,265px),1fr));gap:clamp(10px,1.3vw,18px)}
+.mod{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:clamp(13px,1.7vw,21px);box-shadow:var(--shadow);
+  display:flex;gap:13px;align-items:flex-start;text-align:left;font:inherit;color:inherit;cursor:pointer;width:100%;transition:border-color .15s}
+.mod:hover{border-color:var(--pass)}
+.mod:focus-visible{outline:3px solid var(--pass);outline-offset:3px}
+.mod .n{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:13px;color:var(--pass);border:1.5px solid var(--pass);border-radius:8px;width:29px;height:29px;flex:0 0 29px;display:grid;place-items:center}
+.mod .t{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(15px,1.6vw,20px);line-height:1.2;display:block}
+.mod .s{font-size:13px;color:var(--ink-soft);margin-top:5px;line-height:1.4;display:block}
+
+/* section */
+.sec{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(18px,4vw,60px);align-items:center;max-width:1240px;margin:0 auto;width:100%}
+.badge{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:clamp(10px,.95vw,12px);color:var(--paper);background:var(--pass);border-radius:999px;padding:6px 13px;display:inline-block;margin-bottom:clamp(10px,1.8vh,18px)}
+.sec p{color:var(--ink-soft);max-width:38ch;margin:0;font-size:clamp(14px,1.3vw,17px)}
+.topics{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:clamp(8px,1vw,11px)}
+.topics li{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--pass);border-radius:12px;box-shadow:var(--shadow);
+  padding:clamp(12px,1.6vw,19px) clamp(13px,1.7vw,22px);display:flex;align-items:center;gap:13px}
+.topics li .ix{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-soft);min-width:21px}
+.topics li .lab{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(14px,1.65vw,21px);line-height:1.2}
+
+/* hook */
+.hook{max-width:1000px;margin:0 auto;text-align:left}
+.bignum{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(56px,13vw,190px);line-height:.85;letter-spacing:-.045em;color:var(--fail);margin:0}
+.bigcap{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(18px,2.6vw,34px);margin:14px 0 0;line-height:1.2}
+.hook p.body{color:var(--ink-soft);max-width:60ch;font-size:clamp(14px,1.45vw,18px);margin-top:18px}
+.ask{border-left:4px solid var(--pass);padding:12px 0 12px 18px;margin-top:22px;font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(16px,2vw,26px);line-height:1.25}
+
+/* bullets */
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:clamp(10px,1.4vw,18px)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:clamp(14px,1.8vw,22px);box-shadow:var(--shadow)}
+.box p{margin:0;color:var(--ink-soft);font-size:clamp(13px,1.3vw,16px)}
+.box .tag{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--pass);display:block;margin-bottom:8px}
+ul.plain{margin:0;padding-left:1.1em;color:var(--ink-soft);line-height:1.75;font-size:clamp(14px,1.4vw,18px)}
+ul.plain li{margin-bottom:6px}
+ul.plain b{color:var(--ink)}
+
+/* code */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2.2vw,30px);align-items:start}
+pre.code{background:var(--code-bg);color:var(--code-ink);border-radius:14px;padding:clamp(14px,1.7vw,22px);
+  font-size:clamp(11.5px,1.15vw,15px);line-height:1.65;overflow-x:auto;margin:0;border:1px solid rgba(255,255,255,.08)}
+pre.code .c{color:#7FA894}
+pre.code .k{color:#7FE0B4}
+pre.code .s{color:#FFC08A}
+pre.code .r{color:#FF8468}
+.note{color:var(--ink-soft);font-size:clamp(13px,1.3vw,16px);margin-top:14px;line-height:1.6}
+.reveal{margin-top:16px}
+.reveal button{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:15px;padding:11px 20px;border-radius:999px;
+  border:0;background:var(--pass);color:var(--paper);cursor:pointer}
+.reveal button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.solution[hidden]{display:none}
+.solution{margin-top:16px}
+
+/* hud */
+.hud{position:fixed;left:0;right:0;bottom:0;padding:10px clamp(14px,3vw,32px);padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));
+  display:flex;align-items:center;gap:12px;background:linear-gradient(to top,var(--paper) 62%,transparent)}
+.bar{flex:1;height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+.bar span{display:block;height:100%;background:var(--pass);width:0;transition:width .3s}
+.count{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-soft);min-width:54px;text-align:center}
+.nav{display:flex;gap:8px}
+.nav button{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;font-size:16px;display:grid;place-items:center}
+.nav button:hover{border-color:var(--pass);color:var(--pass)}
+.nav button:focus-visible{outline:3px solid var(--pass);outline-offset:2px}
+.nav button[disabled]{opacity:.35;cursor:default}
+
+@media (max-width:900px){
+  .hero,.sec,.split{grid-template-columns:1fr}
+  .art{order:-1;max-width:150px;margin:0 auto}
+  .sec p{max-width:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="tabs" role="tablist">
+    <button id="tab-programme" role="tab" aria-selected="true"></button>
+    <button id="tab-seance1" role="tab" aria-selected="false"></button>
+  </div>
+  <div class="lang" role="group" aria-label="Langue / Language">
+    <button id="btn-fr" aria-pressed="true">FR</button>
+    <button id="btn-en" aria-pressed="false">EN</button>
+  </div>
+</header>
+
+<main class="stage" id="stage"></main>
+
+<nav class="hud">
+  <div class="count" id="count">1 / 1</div>
+  <div class="bar"><span id="fill"></span></div>
+  <div class="nav">
+    <button id="prev" aria-label="←">‹</button>
+    <button id="next" aria-label="→">›</button>
+  </div>
+</nav>
+
+<script>
+/* ============ CONTENU ============ */
+const UI = {
+  tabProgramme:{fr:"Programme",en:"Syllabus"},
+  tabSeance:{fr:"Séance 1",en:"Session 1"},
+  moduleWord:{fr:"MODULE",en:"MODULE"},
+  topicsWord:{fr:"sujets au programme.",en:"topics in this module."},
+  show:{fr:"Afficher le corrigé",en:"Show the solution"},
+  hide:{fr:"Masquer le corrigé",en:"Hide the solution"}
+};
+const t = o => (o && typeof o==='object' && o.fr!==undefined) ? (o[lang]||o.fr) : o;
+
+const MODULES = [
+  {t:{fr:"Concepts",en:"Concepts"},s:{fr:"Manuel, automatisé et outils",en:"Manual, automated and tooling"},
+   topics:{fr:["Test manuel vs automatisé","Bénéfices de l'automatisation","Types de tests","Outils"],
+           en:["Manual Vs Automated","Benefits of Automated Testing","Types of Tests","Tools"]}},
+  {t:{fr:"Tests unitaires",en:"Unit Testing"},s:{fr:"Tester une fonction isolée",en:"Testing one function in isolation"},
+   topics:{fr:["Mise en place","Assertions (matchers)","Code asynchrone","Mocks"],
+           en:["Setup","Testing Matchers","Asynchronous Code","Mocks"]}},
+  {t:{fr:"Tests d'intégration",en:"Integration Testing"},s:{fr:"Les briques qui se parlent",en:"Making the pieces talk"},
+   topics:{fr:["Base de données","Tests d'API","Fonctions utilitaires"],en:["Database","API Testing","Helpers"]}},
+  {t:{fr:"Tests end-to-end",en:"E2E Testing"},s:{fr:"Le parcours utilisateur complet",en:"The full user journey"},
+   topics:{fr:["Scénario utilisateur","Page web frontend"],en:["Workflow","Frontend Web Page"]}},
+  {t:{fr:"TDD et BDD",en:"TDD and BDD"},s:{fr:"Écrire le test en premier",en:"Write the test first"},
+   topics:{fr:["Développement piloté par les tests","Bénéfices et exemples","Développement piloté par le comportement","Outils BDD"],
+           en:["Test Driven Development","Benefits & Examples","Behavior Driven Development","BDD Tools"]}},
+  {t:{fr:"Tests de performance",en:"Performance Testing"},s:{fr:"Tenir la charge",en:"Holding up under load"},
+   topics:{fr:["Test de charge","Test de stress","JMeter"],en:["Load Testing","Stress Testing","JMeter"]}}
+];
+
+/* ---- deck 1 : programme ---- */
+const PROGRAMME = [
+  {type:"title"},
+  {type:"agenda"},
+  ...MODULES.map((m,i)=>({type:"module",i}))
+];
+
+/* ---- deck 2 : séance 1 ---- */
+const S1 = [
+{type:"cover",
+ kicker:{fr:"Séance 1 · 1 h 30",en:"Session 1 · 90 min"},
+ t1:{fr:"Pourquoi",en:"Why"}, t2:{fr:"tester ?",en:"test?"},
+ lede:{fr:"Une panne, une fonction cassée, et votre premier test qui passe au vert. Aucune installation requise.",
+       en:"One outage, one broken function, and your first green test. No setup required."},
+ chips:[{n:"3",l:{fr:"exercices",en:"exercises"}},{n:"1",l:{fr:"bug réel",en:"real outage"}},{n:"AAA",l:{fr:"la structure d'un test",en:"the shape of a test"}}]},
+
+{type:"hook",
+ kicker:{fr:"1er août 2012 · Knight Capital",en:"August 1, 2012 · Knight Capital"},
+ num:{fr:"440 M$",en:"$440M"},
+ cap:{fr:"perdus en 45 minutes.",en:"lost in 45 minutes."},
+ body:{fr:"Une mise à jour déployée sur huit serveurs. Sept reçoivent le nouveau code, le huitième garde l'ancien — un code mort depuis huit ans, réveillé par erreur. En 45 minutes, l'entreprise passe des millions d'ordres d'achat absurdes. Elle ne s'en relèvera pas.",
+        en:"An update deployed to eight servers. Seven got the new code, the eighth kept the old one — dead code from eight years earlier, woken up by mistake. In 45 minutes the firm placed millions of nonsensical orders. It never recovered."},
+ ask:{fr:"Qu'est-ce qui aurait pu attraper ça avant les utilisateurs ?",
+      en:"What could have caught this before the users did?"}},
+
+{type:"bullets",
+ kicker:{fr:"Ce qu'on en retient",en:"What we take from it"},
+ h2:{fr:"Un test, c'est une question posée au code",en:"A test is a question asked of the code"},
+ items:{fr:["<b>Relire le code</b> ne suffit pas : personne n'avait relu le vieux code, il n'était plus censé tourner.",
+            "<b>Tester à la main</b> ne passe pas à l'échelle : impossible de rejouer tous les scénarios à chaque déploiement.",
+            "<b>Un test automatisé</b> pose toujours la même question, à chaque commit, sans se fatiguer.",
+            "Le coût d'un bug est multiplié par 10 à chaque étape franchie : écriture → revue → production."],
+        en:["<b>Reading the code</b> is not enough: nobody reread the old code, it was not supposed to run anymore.",
+            "<b>Manual testing</b> does not scale: you cannot replay every scenario on every deploy.",
+            "<b>An automated test</b> asks the same question on every commit, and never gets tired.",
+            "A bug costs roughly 10× more at each stage it survives: writing → review → production."]}},
+
+{type:"code",
+ kicker:{fr:"Anatomie",en:"Anatomy"},
+ h2:{fr:"Trois temps : Arrange, Act, Assert",en:"Three beats: Arrange, Act, Assert"},
+ code:`<span class="k">@Test</span>
+<span class="k">void</span> uneRemiseDe10PourcentSur200DTDonne180() {
+  <span class="c">// 1. Arrange — je prépare les données</span>
+  <span class="k">double</span> prix = 200, remise = 10;
+
+  <span class="c">// 2. Act — j'exécute ce que je veux tester</span>
+  <span class="k">double</span> resultat = Panier.applyDiscount(prix, remise);
+
+  <span class="c">// 3. Assert — je vérifie le résultat attendu</span>
+  assertEquals(180, resultat);
+}`,
+ note:{fr:"Un test qui n'a pas ces trois temps est presque toujours un test qui ne teste rien. Le nom de la méthode doit décrire le comportement attendu, pas la fonction appelée. <code>@Test</code> vient de JUnit 5 (<code>org.junit.jupiter.api.Test</code>), <code>assertEquals</code> de <code>Assertions</code>.",
+       en:"A test missing one of these three beats almost always tests nothing. The method name should describe the expected behaviour, not the function being called. <code>@Test</code> comes from JUnit 5 (<code>org.junit.jupiter.api.Test</code>), <code>assertEquals</code> from <code>Assertions</code>."}},
+
+{type:"exercise",
+ kicker:{fr:"Exercice 1 · 10 minutes",en:"Exercise 1 · 10 minutes"},
+ h2:{fr:"Cette fonction a un bug. Trouvez-le avec un test.",en:"This function has a bug. Find it with a test."},
+ code:`<span class="c">// Panier.java</span>
+<span class="k">public class</span> Panier {
+  <span class="k">public static double</span> applyDiscount(<span class="k">double</span> prix, <span class="k">double</span> pourcentage) {
+    <span class="k">if</span> (pourcentage > 100) pourcentage = 100;
+    <span class="k">return</span> prix - (prix * pourcentage / 100);
+  }
+}`,
+ task:{fr:"Écrivez trois tests JUnit : un cas normal, une remise de 100 %, et un cas que le développeur n'a pas prévu.",
+       en:"Write three JUnit tests: a normal case, a 100% discount, and one case the developer did not think about."},
+ sol:`<span class="k">@Test</span>
+<span class="k">void</span> appliqueUneRemiseDe10Pourcent() {
+  assertEquals(180, Panier.applyDiscount(200, 10));
+}
+
+<span class="k">@Test</span>
+<span class="k">void</span> uneRemiseDe100PourcentRendLeProduitGratuit() {
+  assertEquals(0, Panier.applyDiscount(200, 100));
+}
+
+<span class="r">// ❌ ÉCHOUE : renvoie 300 au lieu de 200</span>
+<span class="k">@Test</span>
+<span class="k">void</span> unPourcentageNegatifNeFaitPasMonterLePrix() {
+  assertEquals(200, Panier.applyDiscount(200, -50));
+}`,
+ solNote:{fr:"Le bug : le plafond haut est géré, le plancher bas non. <code>applyDiscount(200, -50)</code> renvoie 300 — le client paie plus cher. Correction : <code>pourcentage = Math.min(100, Math.max(0, pourcentage))</code>. Le message à faire passer : le bug se cachait dans le cas auquel personne n'avait pensé, et c'est le test qui a posé la question.",
+          en:"The bug: the upper bound is handled, the lower one is not. <code>applyDiscount(200, -50)</code> returns 300 — the customer pays more. Fix: <code>percent = Math.min(100, Math.max(0, percent))</code>. The point to make: the bug hid in the case nobody thought about, and the test is what asked the question."}},
+
+{type:"bullets",
+ kicker:{fr:"Le cycle",en:"The cycle"},
+ h2:{fr:"Rouge, vert, puis on range",en:"Red, green, then tidy up"},
+ items:{fr:["<b>Rouge</b> — j'écris d'abord le test du comportement voulu. Il échoue, et c'est normal : le code n'existe pas encore, ou il est faux.",
+            "<b>Vert</b> — j'écris le minimum de code pour que le test passe. Pas plus.",
+            "<b>Refactor</b> — je nettoie le code. Le test me dit immédiatement si j'ai cassé quelque chose.",
+            "Un test rouge au départ est un test qu'on a vu échouer : on sait qu'il teste vraiment quelque chose."],
+        en:["<b>Red</b> — write the test for the behaviour you want. It fails, and that is expected: the code does not exist yet, or it is wrong.",
+            "<b>Green</b> — write the smallest amount of code that makes it pass. No more.",
+            "<b>Refactor</b> — clean the code up. The test tells you instantly if you broke something.",
+            "A test you have seen fail is a test you know is really testing something."]}},
+
+{type:"exercise",
+ kicker:{fr:"Exercice 2 · 10 minutes",en:"Exercise 2 · 10 minutes"},
+ h2:{fr:"Ce test a été généré par une IA. Que vaut-il ?",en:"An AI generated this test. Is it any good?"},
+ code:`<span class="k">@Test</span>
+<span class="k">void</span> testApplyDiscount() {
+  <span class="k">double</span> result = Panier.applyDiscount(100, 10);
+  assertNotNull(result);
+  assertNotEquals(0, result);
+}`,
+ task:{fr:"Il passe au vert. Listez tout ce qui ne va pas, puis réécrivez-le.",
+       en:"It passes. List everything wrong with it, then rewrite it."},
+ sol:`<span class="c">// Les trois problèmes :</span>
+<span class="c">// 1. assertNotEquals(0, result) passe même si la fonction renvoie 7000.</span>
+<span class="c">// 2. Le nom ne dit pas quel comportement est attendu.</span>
+<span class="c">// 3. Un seul cas, choisi au hasard : aucun cas limite.</span>
+
+<span class="k">@Test</span>
+<span class="k">void</span> retire10PourcentDuPrixAffiche() {
+  assertEquals(90, Panier.applyDiscount(100, 10));
+}`,
+ solNote:{fr:"Un test qui passe toujours est pire qu'une absence de test : il donne une fausse confiance et personne ne le relit. Test de l'enseignante à retenir : <b>cassez volontairement la fonction. Si le test reste vert, jetez le test.</b>",
+          en:"A test that always passes is worse than no test: it creates false confidence and nobody rereads it. The rule to remember: <b>deliberately break the function. If the test stays green, throw the test away.</b>"}},
+
+{type:"split",
+ kicker:{fr:"Où va-t-on ensuite",en:"Where we go next"},
+ h2:{fr:"La pyramide des tests",en:"The testing pyramid"},
+ boxes:[
+  {tag:"E2E", h:{fr:"Peu nombreux",en:"A few"},p:{fr:"Un navigateur joue le parcours complet du client. Très réaliste, très lent, casse souvent pour de mauvaises raisons.",en:"A browser plays the full customer journey. Very realistic, very slow, often breaks for the wrong reasons."}},
+  {tag:"INTEGRATION", h:{fr:"Quelques dizaines",en:"A few dozen"},p:{fr:"Deux briques ensemble : le code et la base, le code et l'API. On y attrape ce que le test unitaire ne voit pas.",en:"Two pieces together: code and database, code and API. Catches what unit tests cannot see."}},
+  {tag:"UNIT", h:{fr:"Des centaines",en:"Hundreds"},p:{fr:"Une fonction isolée, quelques millisecondes. C'est la base de la pyramide, et c'est le module 2 de notre cours.",en:"One function in isolation, a few milliseconds. This is the base of the pyramid, and module 2 of this course."}}
+ ],
+ note:{fr:"Beaucoup d'équipes construisent la pyramide à l'envers : quelques tests E2E fragiles et rien en dessous. Résultat, la suite met 40 minutes et personne ne lui fait confiance.",
+       en:"Many teams build the pyramid upside down: a handful of fragile E2E tests and nothing underneath. The suite then takes 40 minutes and nobody trusts it."}},
+
+{type:"bullets",
+ kicker:{fr:"Pour la prochaine fois",en:"Before next time"},
+ h2:{fr:"À retenir et à faire",en:"Takeaways and homework"},
+ items:{fr:["Un test = <b>Arrange, Act, Assert</b>, et un nom qui décrit le comportement attendu.",
+            "Un test n'a de valeur que si <b>on l'a vu échouer</b> au moins une fois.",
+            "<b>À faire :</b> reprenez <code>Panier.applyDiscount</code>, corrigez le bug, et vérifiez que vos trois tests passent au vert.",
+            "<b>À faire :</b> écrivez deux tests pour une méthode <code>isValidEmail</code> — un qui passe, un qui échoue.",
+            "Séance 2 : on installe JUnit 5 dans un projet Maven et on écrit une vraie suite de tests unitaires."],
+        en:["A test = <b>Arrange, Act, Assert</b>, plus a name that describes the expected behaviour.",
+            "A test is only worth something once <b>you have seen it fail</b>.",
+            "<b>Homework:</b> take <code>Panier.applyDiscount</code>, fix the bug, and check your three tests go green.",
+            "<b>Homework:</b> write two tests for an <code>isValidEmail</code> method — one passing, one failing.",
+            "Session 2: we set up JUnit 5 in a Maven project and write a real unit test suite."]}}
+];
+
+/* ============ RENDU ============ */
+const DECKS={programme:PROGRAMME,seance1:S1};
+let lang='fr', deck='programme', idx={programme:0,seance1:0}, slides=[];
+const stage=document.getElementById('stage');
+const count=document.getElementById('count'), fill=document.getElementById('fill');
+const prev=document.getElementById('prev'), next=document.getElementById('next');
+
+function esc(s){return s}
+function chips(list){return list.map(c=>`<span class="chip"><b>${c.n}</b> ${t(c.l)}</span>`).join('')}
+
+function slideHTML(s){
+  switch(s.type){
+    case "title": return `<div class="hero">
+      <div><p class="kicker">${lang==='fr'?'Cours · 6 modules':'Course · 6 modules'}</p>
+      <h1><span>Software</span><em>Testing</em></h1>
+      <p class="lede">${lang==='fr'?"Du test unitaire au test de charge : écrire des tests qui attrapent les bugs avant les utilisateurs.":"From unit tests to load tests: writing tests that catch bugs before your users do."}</p>
+      <div class="meta"><span class="chip"><b>6</b> ${lang==='fr'?'modules':'modules'}</span><span class="chip"><b>19</b> ${lang==='fr'?'sujets':'topics'}</span><span class="chip">Unit → E2E → Performance</span></div></div>
+      <div class="art">${BUG_SVG}</div></div>`;
+    case "agenda": return `<div class="wrap"><p class="kicker">${lang==='fr'?'Sommaire':'Overview'}</p>
+      <h2>${lang==='fr'?'Programme du cours':'Course Agenda'}</h2>
+      <div class="agenda">${MODULES.map((m,k)=>`<button class="mod" data-go="${k+2}">
+        <span class="n">${k+1}</span><span><span class="t">${t(m.t)}</span><span class="s">${t(m.s)}</span></span></button>`).join('')}</div></div>`;
+    case "module": {
+      const m=MODULES[s.i], tp=t(m.topics);
+      return `<div class="sec"><div><span class="badge">${t(UI.moduleWord)} ${s.i+1}</span><h2>${t(m.t)}</h2>
+        <p>${t(m.s)}. ${tp.length} ${t(UI.topicsWord)}</p></div>
+        <ul class="topics">${tp.map((x,j)=>`<li><span class="ix">${String(j+1).padStart(2,'0')}</span><span class="lab">${x}</span></li>`).join('')}</ul></div>`;
+    }
+    case "cover": return `<div class="hero"><div>
+      <p class="kicker">${t(s.kicker)}</p><h1><span>${t(s.t1)}</span><em>${t(s.t2)}</em></h1>
+      <p class="lede">${t(s.lede)}</p><div class="meta">${chips(s.chips)}</div></div>
+      <div class="art">${BUG_SVG}</div></div>`;
+    case "hook": return `<div class="hook"><p class="kicker">${t(s.kicker)}</p>
+      <p class="bignum">${t(s.num)}</p><p class="bigcap">${t(s.cap)}</p>
+      <p class="body">${t(s.body)}</p><p class="ask">${t(s.ask)}</p></div>`;
+    case "bullets": return `<div class="wrap"><p class="kicker">${t(s.kicker)}</p><h2>${t(s.h2)}</h2>
+      <ul class="plain">${t(s.items).map(x=>`<li>${x}</li>`).join('')}</ul></div>`;
+    case "code": return `<div class="wrap"><p class="kicker">${t(s.kicker)}</p><h2>${t(s.h2)}</h2>
+      <div class="split"><pre class="code">${s.code}</pre><p class="note">${t(s.note)}</p></div></div>`;
+    case "exercise": return `<div class="wrap"><p class="kicker">${t(s.kicker)}</p><h2>${t(s.h2)}</h2>
+      <div class="split">
+        <div><pre class="code">${s.code}</pre><p class="note">${t(s.task)}</p></div>
+        <div><div class="reveal"><button data-reveal>${t(UI.show)}</button></div>
+          <div class="solution" hidden><pre class="code">${s.sol}</pre><p class="note">${t(s.solNote)}</p></div></div>
+      </div></div>`;
+    case "split": return `<div class="wrap"><p class="kicker">${t(s.kicker)}</p><h2>${t(s.h2)}</h2>
+      <div class="cols">${s.boxes.map(b=>`<div class="box"><span class="tag">${b.tag}</span><h3>${t(b.h)}</h3><p>${t(b.p)}</p></div>`).join('')}</div>
+      <p class="note">${t(s.note)}</p></div>`;
+  }
+  return '';
+}
+
+const BUG_SVG=`<svg viewBox="0 0 300 300" fill="none" aria-hidden="true">
+<rect x="18" y="40" width="264" height="180" rx="14" stroke="currentColor" stroke-width="6" opacity=".25"/>
+<path d="M18 72h264" stroke="currentColor" stroke-width="6" opacity=".25"/>
+<circle cx="40" cy="56" r="5" fill="var(--fail)"/><circle cx="58" cy="56" r="5" fill="var(--pass)"/>
+<circle cx="132" cy="146" r="56" stroke="var(--pass)" stroke-width="9"/>
+<path d="M172 188l56 54" stroke="var(--pass)" stroke-width="16" stroke-linecap="round"/>
+<ellipse cx="132" cy="148" rx="19" ry="25" fill="var(--fail)"/>
+<path d="M132 123v50M113 134l-14-10M151 134l14-10M111 150H95M153 150h16M113 166l-14 11M151 166l14 11" stroke="var(--ink)" stroke-width="4.5" stroke-linecap="round"/></svg>`;
+
+function render(){
+  document.documentElement.lang=lang;
+  document.getElementById('tab-programme').textContent=t(UI.tabProgramme);
+  document.getElementById('tab-seance1').textContent=t(UI.tabSeance);
+  document.getElementById('tab-programme').setAttribute('aria-selected',deck==='programme');
+  document.getElementById('tab-seance1').setAttribute('aria-selected',deck==='seance1');
+  document.getElementById('btn-fr').setAttribute('aria-pressed',lang==='fr');
+  document.getElementById('btn-en').setAttribute('aria-pressed',lang==='en');
+
+  stage.innerHTML = DECKS[deck].map(s=>`<section class="slide">${slideHTML(s)}</section>`).join('');
+  slides=[...stage.querySelectorAll('.slide')];
+  stage.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(+b.dataset.go));
+  stage.querySelectorAll('[data-reveal]').forEach(b=>{
+    b.onclick=()=>{
+      const sol=b.closest('.split').querySelector('.solution');
+      const open=sol.hasAttribute('hidden');
+      if(open){sol.removeAttribute('hidden');b.textContent=t(UI.hide);}
+      else{sol.setAttribute('hidden','');b.textContent=t(UI.show);}
+    };
+  });
+  go(idx[deck]);
+}
+function go(n){
+  const i=Math.max(0,Math.min(slides.length-1,n));
+  idx[deck]=i;
+  slides.forEach((s,k)=>s.classList.toggle('is-current',k===i));
+  count.textContent=`${i+1} / ${slides.length}`;
+  fill.style.width=((i+1)/slides.length*100)+'%';
+  prev.disabled=i===0; next.disabled=i===slides.length-1;
+  slides[i].scrollTop=0;
+}
+function setDeck(d){deck=d;try{localStorage.setItem('deck-tab',d)}catch(e){};render()}
+function setLang(l){lang=l;try{localStorage.setItem('deck-lang',l)}catch(e){};render()}
+
+document.getElementById('tab-programme').onclick=()=>setDeck('programme');
+document.getElementById('tab-seance1').onclick=()=>setDeck('seance1');
+document.getElementById('btn-fr').onclick=()=>setLang('fr');
+document.getElementById('btn-en').onclick=()=>setLang('en');
+prev.onclick=()=>go(idx[deck]-1);
+next.onclick=()=>go(idx[deck]+1);
+addEventListener('keydown',e=>{
+  if(e.target.tagName==='BUTTON'&&e.key===' ')return;
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(idx[deck]+1)}
+  if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(idx[deck]-1)}
+  if(e.key==='Home')go(0);
+  if(e.key==='End')go(slides.length-1);
+});
+let x0=null;
+addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+addEventListener('touchend',e=>{
+  if(x0===null)return;
+  const dx=e.changedTouches[0].clientX-x0;
+  if(Math.abs(dx)>60)go(idx[deck]+(dx<0?1:-1));
+  x0=null;
+},{passive:true});
+
+try{const l=localStorage.getItem('deck-lang');if(l==='en'||l==='fr')lang=l;
+    const d=localStorage.getItem('deck-tab');if(d==='programme'||d==='seance1')deck=d;}catch(e){}
+render();
+</script>
+</body>
+</html>
