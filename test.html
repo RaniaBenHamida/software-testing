@@ -112,6 +112,68 @@ pre.code .r{color:#FF8468}
 .solution[hidden]{display:none}
 .solution{margin-top:16px}
 
+/* icon cards */
+.icards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:clamp(10px,1.4vw,16px)}
+.icard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:clamp(14px,1.7vw,20px);box-shadow:var(--shadow)}
+.icard .ic{width:38px;height:38px;border-radius:10px;background:rgba(18,145,91,.12);color:var(--pass);display:grid;place-items:center;margin-bottom:12px}
+.icard .ic svg{width:20px;height:20px}
+.icard h3{margin:0 0 6px;font-size:clamp(15px,1.5vw,18px)}
+.icard p{margin:0;color:var(--ink-soft);font-size:clamp(12.5px,1.2vw,14.5px);line-height:1.5}
+.icard.bad .ic{background:rgba(223,91,65,.14);color:var(--fail)}
+
+/* step list */
+.steps{display:flex;flex-direction:column;gap:clamp(7px,1vw,10px)}
+.step{display:flex;gap:13px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:clamp(10px,1.3vw,14px) clamp(13px,1.6vw,18px)}
+.step .ic{flex:0 0 32px;width:32px;height:32px;border-radius:9px;background:rgba(18,145,91,.12);color:var(--pass);display:grid;place-items:center}
+.step .ic svg{width:17px;height:17px}
+.step .lab{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(13.5px,1.4vw,17px)}
+.step .n{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-soft);min-width:16px}
+
+/* compare */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1.6vw,20px)}
+.cmp-col h3{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:12px;letter-spacing:.05em;color:var(--ink-soft);margin:0 0 10px;text-transform:uppercase}
+.cmp-list{display:flex;flex-direction:column;gap:clamp(8px,1.1vw,12px)}
+.cmp-item{border-radius:12px;padding:clamp(11px,1.5vw,16px) clamp(13px,1.7vw,18px);display:flex;align-items:center;gap:11px;
+  font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(13px,1.35vw,16.5px);line-height:1.25}
+.cmp-item .ic{flex:0 0 26px;width:26px;height:26px;display:grid;place-items:center}
+.cmp-item .ic svg{width:17px;height:17px}
+.cmp-item.bad{background:var(--pass-deep);color:var(--paper)}
+.cmp-item.good{background:var(--card);color:var(--pass-deep);border:1px solid var(--line)}
+
+/* chart */
+.chartcard{background:var(--code-bg);border-radius:16px;padding:clamp(16px,2.4vw,28px);color:var(--code-ink)}
+.chartcard svg{width:100%;height:auto;display:block}
+.chart-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:clamp(10px,1.4vw,16px);margin-top:clamp(14px,2vh,22px)}
+
+/* quote */
+.quote{max-width:900px;margin:0 auto;text-align:center}
+.quote .mark{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(48px,8vw,90px);color:var(--pass);line-height:.6;margin:0 0 10px}
+.quote p{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(22px,3.4vw,44px);letter-spacing:-.02em;line-height:1.2;margin:0}
+
+/* trio (3 numbered cards) */
+.triocards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:clamp(10px,1.5vw,18px)}
+.triocard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:clamp(22px,3vw,32px) clamp(14px,1.8vw,20px);text-align:center;box-shadow:var(--shadow)}
+.triocard .num{width:42px;height:42px;border-radius:50%;background:var(--pass-deep);color:var(--paper);font-family:"JetBrains Mono",monospace;font-weight:700;font-size:17px;display:grid;place-items:center;margin:0 auto clamp(12px,1.6vw,18px)}
+.triocard h3{margin:0 0 6px;font-size:clamp(15px,1.6vw,19px)}
+.triocard p{margin:0;color:var(--ink-soft);font-size:clamp(12px,1.15vw,13.5px)}
+
+/* deftype (definition + dependency card) */
+.deftype{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(18px,4vw,56px);align-items:center;max-width:1160px;margin:0 auto;width:100%}
+.dqwrap .mark{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(36px,5.6vw,58px);color:var(--pass);line-height:.6;margin:14px 0 6px}
+.dqwrap .dq{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(19px,2.4vw,31px);letter-spacing:-.015em;line-height:1.28;margin:0}
+.depcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:clamp(15px,2vw,24px);box-shadow:var(--shadow)}
+.depcard h4{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 12px}
+.depitem{display:flex;align-items:center;gap:12px;padding:clamp(9px,1.2vw,12px) 0;border-top:1px solid var(--line)}
+.depitem:first-of-type{border-top:none;padding-top:0}
+.depitem .ic{width:29px;height:29px;border-radius:8px;background:rgba(18,145,91,.12);color:var(--pass);display:grid;place-items:center;flex:0 0 29px}
+.depitem .ic svg{width:15px;height:15px}
+.depitem.excluded{opacity:.5}
+.depitem.excluded .ic{background:rgba(74,106,93,.12);color:var(--ink-soft)}
+.depitem .lab{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(13px,1.35vw,15px)}
+.depitem.excluded .lab{text-decoration:line-through}
+.depitem .status{margin-left:auto;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--pass);white-space:nowrap}
+.depitem.excluded .status{color:var(--ink-soft)}
+
 /* hud */
 .hud{position:fixed;left:0;right:0;bottom:0;padding:10px clamp(14px,3vw,32px);padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));
   display:flex;align-items:center;gap:12px;background:linear-gradient(to top,var(--paper) 62%,transparent)}
@@ -125,7 +187,7 @@ pre.code .r{color:#FF8468}
 .nav button[disabled]{opacity:.35;cursor:default}
 
 @media (max-width:900px){
-  .hero,.sec,.split{grid-template-columns:1fr}
+  .hero,.sec,.split,.cmp,.deftype{grid-template-columns:1fr}
   .art{order:-1;max-width:150px;margin:0 auto}
   .sec p{max-width:none}
 }
@@ -137,6 +199,7 @@ pre.code .r{color:#FF8468}
 <header class="topbar">
   <div class="tabs" role="tablist">
     <button id="tab-programme" role="tab" aria-selected="true"></button>
+    <button id="tab-concepts" role="tab" aria-selected="false"></button>
     <button id="tab-seance1" role="tab" aria-selected="false"></button>
   </div>
   <div class="lang" role="group" aria-label="Langue / Language">
@@ -160,6 +223,7 @@ pre.code .r{color:#FF8468}
 /* ============ CONTENU ============ */
 const UI = {
   tabProgramme:{fr:"Programme",en:"Syllabus"},
+  tabConcepts:{fr:"#1 Concepts",en:"#1 Concepts"},
   tabSeance:{fr:"Séance 1",en:"Session 1"},
   moduleWord:{fr:"MODULE",en:"MODULE"},
   topicsWord:{fr:"sujets au programme.",en:"topics in this module."},
@@ -167,6 +231,33 @@ const UI = {
   hide:{fr:"Masquer le corrigé",en:"Hide the solution"}
 };
 const t = o => (o && typeof o==='object' && o.fr!==undefined) ? (o[lang]||o.fr) : o;
+
+/* ---- icônes SVG (24x24, stroke=currentColor) ---- */
+const ICONS = {
+  phone:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,
+  cursor:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l7.07 17 2.51-7.39L21 11.07z"/></svg>`,
+  keyboard:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="10" x2="6.01" y2="10"/><line x1="10" y1="10" x2="10.01" y2="10"/><line x1="14" y1="10" x2="14.01" y2="10"/><line x1="18" y1="10" x2="18.01" y2="10"/><line x1="7" y1="14" x2="17" y2="14"/></svg>`,
+  eye:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  user:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+  clock:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+  repeat:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>`,
+  codeoff:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="2" y1="2" x2="22" y2="22"/></svg>`,
+  code:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+  cart:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>`,
+  search:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
+  tag:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41L11 3.83V3H3v8l.83.83 9.58 9.58a2 2 0 0 0 2.83 0l4.35-4.35a2 2 0 0 0 0-2.83z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>`,
+  card:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>`,
+  mail:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><polyline points="22 6 12 13 2 6"/></svg>`,
+  list:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>`,
+  robot:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="16" height="11" rx="2"/><circle cx="9" cy="14.5" r="1"/><circle cx="15" cy="14.5" r="1"/><path d="M12 9V5"/><circle cx="12" cy="3.5" r="1.5"/><line x1="2" y1="14" x2="4" y2="14"/><line x1="20" y1="14" x2="22" y2="14"/></svg>`,
+  bolt:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  shield:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>`,
+  gauge:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><line x1="12" y1="12" x2="16" y2="8"/><line x1="8" y1="12" x2="12" y2="12"/></svg>`,
+  cloud:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>`,
+  database:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>`,
+  monitor:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`
+};
+function icon(name){return ICONS[name]||''}
 
 const MODULES = [
   {t:{fr:"Concepts",en:"Concepts"},s:{fr:"Manuel, automatisé et outils",en:"Manual, automated and tooling"},
@@ -193,7 +284,252 @@ const PROGRAMME = [
   ...MODULES.map((m,i)=>({type:"module",i}))
 ];
 
-/* ---- deck 2 : séance 1 ---- */
+/* ---- deck 2 : #1 Concepts (Manual vs Automated) ---- */
+const CONCEPTS = [
+{type:"cover",
+ kicker:{fr:"Module 1 · Concepts",en:"Module 1 · Concepts"},
+ t1:{fr:"Manuel",en:"Manual"}, t2:{fr:"vs Automatisé",en:"vs Automated"},
+ lede:{fr:"Deux façons de vérifier qu'une fonctionnalité marche : la main d'un humain, ou du code qui vérifie du code.",
+       en:"Two ways to check a feature works: a human's hand, or code that checks code."},
+ chips:[{n:"1",l:{fr:"exemple fil rouge",en:"running example"}},{n:"2",l:{fr:"approches",en:"approaches"}},{n:"1",l:{fr:"graphique de coût",en:"cost chart"}}]},
+
+{type:"steps",
+ kicker:{fr:"Le test manuel",en:"Manual testing"},
+ h2:{fr:"Exemple : une page de connexion toute neuve",en:"Example: a brand-new login page"},
+ intro:{fr:"Vous venez de livrer une nouvelle fonctionnalité — une page de connexion. Pour vérifier qu'elle marche, vous jouez vous-même le rôle de l'utilisateur, à la main :",
+        en:"You just shipped a new feature — a login page. To check it works, you play the user yourself, by hand:"},
+ items:[
+  {ic:"phone", l:{fr:"Ouvrir l'application sur votre téléphone ou votre navigateur",en:"Open the app on your phone or browser"}},
+  {ic:"cursor", l:{fr:"Naviguer jusqu'à la page de connexion",en:"Navigate to the login page"}},
+  {ic:"keyboard", l:{fr:"Saisir un email et un mot de passe au clavier",en:"Type an email and password"}},
+  {ic:"cursor", l:{fr:"Cliquer sur « Se connecter »",en:"Click \"Log in\""}},
+  {ic:"eye", l:{fr:"Regarder à l'œil si ça a marché",en:"Look with your own eyes if it worked"}}
+ ],
+ note:{fr:"Ça marche. Mais chaque fois que vous touchez au code — même pour un autre écran — il faudra tout rejouer à la main pour être sûr de n'avoir rien cassé.",
+       en:"It works. But every time you touch the code — even for a different screen — you'll have to replay all of this by hand to make sure nothing broke."}},
+
+{type:"iconcards",
+ kicker:{fr:"Le problème",en:"The problem"},
+ h2:{fr:"Le test manuel a quatre limites",en:"Manual testing has four limits"},
+ bad:true,
+ items:[
+  {ic:"user", h:{fr:"Il faut un humain",en:"Needs a human"}, p:{fr:"Personne ne peut le lancer à votre place, ni pendant que vous dormez.",en:"Nobody can run it for you, or while you sleep."}},
+  {ic:"clock", h:{fr:"Ça prend du temps",en:"Takes time"}, p:{fr:"Quelques minutes par scénario, multipliées par tous les scénarios à vérifier.",en:"A few minutes per scenario, multiplied by every scenario to check."}},
+  {ic:"repeat", h:{fr:"À refaire à chaque fonctionnalité",en:"Repeat for each new feature"}, p:{fr:"Le login d'hier doit être revérifié quand vous livrez le panier d'aujourd'hui.",en:"Yesterday's login must be re-checked when you ship today's cart."}},
+  {ic:"codeoff", h:{fr:"N'aide pas le code lui-même",en:"Doesn't help with code"}, p:{fr:"Cliquer sur un bouton ne vous dit rien sur la qualité de la fonction derrière.",en:"Clicking a button tells you nothing about the quality of the function behind it."}}
+ ]},
+
+{type:"steps",
+ kicker:{fr:"Ça fait mal",en:"Where it hurts"},
+ h2:{fr:"Exemple : tester une seule commande sur un site e-commerce",en:"Example: testing a single order on an e-commerce site"},
+ intro:{fr:"Pour vérifier qu'une commande fonctionne, vous devez traverser toute l'application, à la main, à chaque fois :",
+        en:"To check one order works, you have to walk through the whole app, by hand, every time:"},
+ items:[
+  {ic:"user", l:{fr:"Se connecter à son compte",en:"Log into the account"}},
+  {ic:"search", l:{fr:"Chercher un produit",en:"Search for a product"}},
+  {ic:"cart", l:{fr:"L'ajouter au panier",en:"Add it to the cart"}},
+  {ic:"tag", l:{fr:"Appliquer un code promo",en:"Apply a coupon code"}},
+  {ic:"card", l:{fr:"Payer avec une carte de test",en:"Pay with a test card"}},
+  {ic:"mail", l:{fr:"Vérifier l'email de confirmation",en:"Check the confirmation email"}},
+  {ic:"list", l:{fr:"Vérifier que la commande apparaît dans l'historique",en:"Check the order appears in the history"}}
+ ],
+ note:{fr:"Sept étapes, facilement 10 minutes, pour un seul scénario sur un seul appareil. Et on recommence à chaque nouvelle version — même si seul le bouton « Ajouter au panier » a changé.",
+       en:"Seven steps, easily 10 minutes, for one scenario on one device. And you start over on every new release — even if only the \"Add to cart\" button changed."}},
+
+{type:"quote",
+ kicker:{fr:"Le tournant",en:"The turning point"},
+ h2t:{fr:"Automated Testing",en:"Automated Testing"},
+ quote:{fr:"Écrire du code pour tester votre code.",en:"Write code to test your code."}},
+
+{type:"bullets",
+ kicker:{fr:"Pourquoi faire ça",en:"Why bother"},
+ h2:{fr:"Pourquoi écrire du code pour tester du code ?",en:"Why write code to test code?"},
+ items:{fr:["Un ordinateur <b>ne se fatigue jamais</b> et ne saute jamais une étape, même la 500ᵉ fois.",
+            "Le scénario de la commande e-commerce s'exécute en <b>quelques millisecondes</b>, pas en 10 minutes.",
+            "Le test peut se relancer <b>automatiquement</b> à chaque modification du code, sans qu'on y pense.",
+            "Il remplace la mémoire humaine (« est-ce que j'ai bien tout revérifié ? ») par une liste qui ne s'oublie jamais."],
+        en:["A computer <b>never gets tired</b> and never skips a step, even the 500th time.",
+            "The e-commerce order scenario runs in <b>a few milliseconds</b>, not 10 minutes.",
+            "The test can rerun <b>automatically</b> on every code change, without anyone remembering to do it.",
+            "It replaces human memory (\"did I really re-check everything?\") with a checklist that never forgets."]}},
+
+{type:"compare2",
+ kicker:{fr:"Le bilan",en:"The scoreboard"},
+ h2:{fr:"Manuel vs Automatisé",en:"Manual vs Automated"},
+ left:{fr:"MANUEL",en:"MANUAL"}, right:{fr:"AUTOMATISÉ",en:"AUTOMATED"},
+ rows:[
+  {ic:"user", bad:{fr:"Il faut un humain",en:"Needs a human"}, good:{fr:"Tourne seul, sans personne",en:"Runs on its own, no one needed"}},
+  {ic:"clock", bad:{fr:"Prend du temps",en:"Takes time"}, good:{fr:"Beaucoup moins de temps",en:"Much less time"}},
+  {ic:"repeat", bad:{fr:"À refaire à chaque fonctionnalité",en:"Repeat for each feature"}, good:{fr:"Refactor with confidence",en:"Refactor with confidence"}},
+  {ic:"codeoff", bad:{fr:"N'aide pas le code",en:"Doesn't help with code"}, good:{fr:"Pousse à écrire un meilleur code",en:"Pushes you to write better code"}}
+ ]},
+
+{type:"split",
+ kicker:{fr:"Zoom sur un bénéfice",en:"Zoom on one benefit"},
+ h2:{fr:"Refactor with confidence",en:"Refactor with confidence"},
+ boxes:[
+  {tag:{fr:"AVANT",en:"BEFORE"}, h:{fr:"Une boucle qui marche",en:"A loop that works"}, p:{fr:"applyDiscount calcule bien le total, mais avec une boucle for maladroite que personne n'ose toucher.",en:"applyDiscount computes the total fine, but with a clumsy for-loop nobody dares touch."}},
+  {tag:{fr:"APRÈS",en:"AFTER"}, h:{fr:"Un code plus propre",en:"Cleaner code"}, p:{fr:"Un développeur simplifie la fonction. Sans tests, personne n'ose le faire — avec impossible de savoir si un cas limite est cassé.",en:"A developer simplifies the function. Without tests, nobody dares do it — impossible to know if an edge case breaks."}},
+  {tag:{fr:"AVEC TESTS",en:"WITH TESTS"}, h:{fr:"Le filet de sécurité",en:"The safety net"}, p:{fr:"Les trois tests de l'exercice 1 tournent en une seconde. S'ils restent verts, la simplification est sûre. Sinon, on le sait tout de suite.",en:"The three tests from exercise 1 run in one second. If they stay green, the simplification is safe. If not, you know instantly."}}
+ ],
+ note:{fr:"« Refactor with confidence » ne veut pas dire qu'on ne casse jamais rien — ça veut dire qu'on le sait dans la seconde qui suit, pas trois semaines plus tard en production.",
+       en:"\"Refactor with confidence\" doesn't mean you never break anything — it means you find out within the second, not three weeks later in production."}},
+
+{type:"chart",
+ kicker:{fr:"Le coût dans le temps",en:"Cost over time"},
+ h2:{fr:"Testing cost",en:"Testing cost"},
+ curveTop:{fr:"Sans automatisation",en:"Without automation"},
+ curveBottom:{fr:"Avec automatisation",en:"With automation"},
+ stats:[
+  {tag:{fr:"SANS AUTOMATISATION",en:"WITHOUT AUTOMATION"}, h:{fr:"≈ 100 heures / an",en:"≈ 100 hours / year"}, p:{fr:"2 h de tests manuels × 50 mises à jour dans l'année — et ça grimpe à chaque nouvelle fonctionnalité à revérifier.",en:"2h of manual testing × 50 releases a year — and it climbs with every new feature to re-check."}},
+  {tag:{fr:"AVEC AUTOMATISATION",en:"WITH AUTOMATION"}, h:{fr:"≈ 4 heures / an",en:"≈ 4 hours / year"}, p:{fr:"5 min de tests automatisés × 50 mises à jour. Le coût reste presque plat, même quand l'application grossit.",en:"5 min of automated tests × 50 releases. The cost stays almost flat, even as the app grows."}}
+ ],
+ note:{fr:"Écrire les tests a un coût au départ. Mais sans eux, le coût du test manuel explose avec la taille de l'application ; avec eux, il reste à peu près constant.",
+       en:"Writing the tests costs something up front. But without them, the manual testing cost explodes as the app grows; with them, it stays roughly constant."}},
+
+/* ===== Types of Tests : unitaire → intégration → E2E, fil rouge "inscription" ===== */
+{type:"trio",
+ kicker:{fr:"Types de tests",en:"Types of tests"},
+ h2:{fr:"Trois familles de tests automatisés",en:"Three families of automated tests"},
+ cards:[
+  {n:1, t:{fr:"Tests unitaires",en:"Unit Testing"}, s:{fr:"Le code, seul",en:"The code, alone"}},
+  {n:2, t:{fr:"Tests d'intégration",en:"Integration Testing"}, s:{fr:"Le code, avec ses dépendances",en:"The code, with its dependencies"}},
+  {n:3, t:{fr:"Tests end-to-end",en:"E2E Testing"}, s:{fr:"L'application, comme un utilisateur",en:"The app, like a real user"}}
+ ]},
+
+{type:"deftype",
+ kicker:{fr:"#1 · Tests unitaires",en:"#1 · Unit Testing"},
+ title:{fr:"Unit Testing",en:"Unit Testing"},
+ quote:{fr:"Tester sans dépendances externes.",en:"Testing without external dependencies."},
+ rightTitle:{fr:"Dans le test",en:"In the test"},
+ items:[
+  {ic:"code", label:{fr:"Votre code",en:"Your code"}, excluded:false},
+  {ic:"database", label:{fr:"Base de données",en:"Database"}, excluded:true},
+  {ic:"cloud", label:{fr:"API / réseau",en:"API / network"}, excluded:true}
+ ]},
+
+{type:"code",
+ kicker:{fr:"Exemple",en:"Example"},
+ h2:{fr:"Une fonction de calculatrice, isolée",en:"A calculator function, in isolation"},
+ code:`<span class="k">@Test</span>
+<span class="k">void</span> additionneDeuxNombres() {
+  assertEquals(5, Calculatrice.add(2, 3));
+}`,
+ note:{fr:"<code>Calculatrice.add</code> ne parle à aucune base de données, aucune API, aucun réseau. Le test vérifie uniquement la logique : donner 2 et 3, obtenir 5. C'est exactement ça, un test unitaire.",
+       en:"<code>Calculator.add</code> talks to no database, no API, no network. The test checks only the logic: give it 2 and 3, get 5. That's exactly what a unit test is."}},
+
+{type:"iconcards",
+ kicker:{fr:"Une définition utile",en:"A useful definition"},
+ h2:{fr:"C'est quoi, une dépendance externe ?",en:"What is an external dependency?"},
+ items:[
+  {ic:"database", h:{fr:"Base de données",en:"Database"}, p:{fr:"MySQL, PostgreSQL, MongoDB… tout ce qui stocke des données ailleurs que dans la mémoire du programme.",en:"MySQL, PostgreSQL, MongoDB… anything that stores data outside the program's memory."}},
+  {ic:"cloud", h:{fr:"API / service externe",en:"API / external service"}, p:{fr:"Un service de paiement, d'email, une API météo — du code que vous ne contrôlez pas.",en:"A payment service, an email service, a weather API — code you don't control."}},
+  {ic:"monitor", h:{fr:"Réseau / fichiers",en:"Network / filesystem"}, p:{fr:"Un appel HTTP, une lecture de fichier, l'horloge système : tout ce qui peut être lent ou indisponible.",en:"An HTTP call, reading a file, the system clock: anything that can be slow or unavailable."}}
+ ]},
+
+{type:"iconcards",
+ kicker:{fr:"Le bénéfice",en:"The benefit"},
+ h2:{fr:"La vitesse",en:"Speed"},
+ items:[
+  {ic:"bolt", h:{fr:"Rapide",en:"Fast"}, p:{fr:"50 tests unitaires tournent en 2 minutes, car aucun n'attend une réponse de base de données ou d'API.",en:"50 unit tests run in 2 minutes, because none of them wait for a database or API response."}},
+  {ic:"gauge", h:{fr:"Résultat immédiat",en:"Instant feedback"}, p:{fr:"Pas de latence réseau : le retour est instantané, à chaque sauvegarde du code.",en:"No network latency: feedback is instant, every time you save your code."}},
+  {ic:"repeat", h:{fr:"Se relance sans coût",en:"Costs nothing to rerun"}, p:{fr:"On peut les exécuter des centaines de fois par jour sans ralentir personne.",en:"You can run them hundreds of times a day without slowing anyone down."}}
+ ]},
+
+{type:"bullets",
+ kicker:{fr:"La limite",en:"The limit"},
+ h2:{fr:"Peu de confiance : l'exemple de l'inscription",en:"Not a lot of confidence: the registration example"},
+ items:{fr:["On peut tester à l'unité que <b>l'email contient un @</b>, que <b>le mot de passe fait au moins 8 caractères</b>, que <b>le nom d'utilisateur n'est pas vide</b> — trois fonctions pures, testées isolément.",
+            "Mais un test unitaire ne peut pas dire si, en cliquant sur <b>« S'inscrire »</b>, l'appel à l'API d'inscription fonctionne vraiment.",
+            "Pour vérifier ce lien, il faut sortir de l'isolement — et passer au <b>test d'intégration</b>."],
+        en:["A unit test can check that <b>the email contains an @</b>, that <b>the password is at least 8 characters</b>, that <b>the username isn't empty</b> — three pure functions, tested in isolation.",
+            "But a unit test cannot tell you whether clicking <b>\"Sign up\"</b> actually makes the registration API call work.",
+            "To check that link, you have to leave isolation behind — and move to <b>integration testing</b>."]}},
+
+{type:"deftype",
+ kicker:{fr:"#2 · Tests d'intégration",en:"#2 · Integration Testing"},
+ title:{fr:"Integration Testing",en:"Integration Testing"},
+ quote:{fr:"Tester votre application avec ses dépendances externes.",en:"Test your app with its external dependencies."},
+ rightTitle:{fr:"Dans le test",en:"In the test"},
+ items:[
+  {ic:"code", label:{fr:"Votre code",en:"Your code"}, excluded:false},
+  {ic:"database", label:{fr:"Base de données",en:"Database"}, excluded:false},
+  {ic:"cloud", label:{fr:"API / réseau",en:"API / network"}, excluded:false}
+ ]},
+
+{type:"bullets",
+ kicker:{fr:"Même exemple, un cran plus loin",en:"Same example, one step further"},
+ h2:{fr:"L'inscription, jusqu'à la base de données",en:"Registration, all the way to the database"},
+ items:{fr:["Le test d'intégration soumet les mêmes données d'inscription, mais cette fois <b>jusqu'à une vraie base de données</b> (ou une base de test).",
+            "On vérifie que l'utilisateur est réellement <b>inséré en base</b>, avec le bon email et un mot de passe correctement chiffré.",
+            "On peut aussi vérifier que <b>l'API répond bien</b> avec un code de succès, ou une erreur claire si l'email existe déjà."],
+        en:["The integration test submits the same registration data, but this time <b>all the way to a real database</b> (or a test database).",
+            "It checks that the user is really <b>inserted into the database</b>, with the right email and a properly hashed password.",
+            "It can also check that <b>the API responds correctly</b> with a success code, or a clear error if the email already exists."]}},
+
+{type:"split",
+ kicker:{fr:"Bénéfice et limites",en:"Benefit and limits"},
+ h2:{fr:"Plus de confiance, mais…",en:"More confidence, but…"},
+ boxes:[
+  {tag:{fr:"BÉNÉFICE",en:"BENEFIT"}, h:{fr:"Give more confidence",en:"Give more confidence"}, p:{fr:"On sait que le code parle correctement à la base et à l'API — pas seulement qu'il calcule juste.",en:"You know the code correctly talks to the database and the API — not just that it computes the right value."}},
+  {tag:{fr:"LIMITE",en:"LIMIT"}, h:{fr:"Take longer",en:"Take longer"}, p:{fr:"Chaque test attend une vraie réponse de la base ou de l'API : quelques secondes au lieu de quelques millisecondes.",en:"Each test waits for a real response from the database or API: seconds instead of milliseconds."}},
+  {tag:{fr:"LIMITE",en:"LIMIT"}, h:{fr:"Le clic humain reste absent",en:"The human click is still missing"}, p:{fr:"Le test appelle directement la fonction d'inscription : il ne prouve pas qu'un utilisateur, en cliquant réellement sur le bouton de l'interface, déclenche bien toute cette chaîne.",en:"The test calls the registration function directly: it doesn't prove that a real user, clicking the actual button in the interface, triggers that whole chain."}}
+ ],
+ note:{fr:"Il manque encore un maillon : l'interface elle-même. C'est le rôle du test end-to-end.",
+       en:"One link is still missing: the interface itself. That's the job of the end-to-end test."}},
+
+{type:"deftype",
+ kicker:{fr:"#3 · Tests end-to-end",en:"#3 · E2E Testing"},
+ title:{fr:"E2E Testing",en:"E2E Testing"},
+ quote:{fr:"Tester votre application à travers son interface (UI).",en:"Test your app through its UI."},
+ rightTitle:{fr:"Dans le test",en:"In the test"},
+ items:[
+  {ic:"monitor", label:{fr:"Interface utilisateur",en:"User interface"}, excluded:false},
+  {ic:"code", label:{fr:"Votre code",en:"Your code"}, excluded:false},
+  {ic:"database", label:{fr:"Base de données",en:"Database"}, excluded:false}
+ ]},
+
+{type:"steps",
+ kicker:{fr:"Le même exemple, piloté par un script",en:"The same example, driven by a script"},
+ h2:{fr:"L'inscription, rejouée automatiquement",en:"Registration, replayed automatically"},
+ intro:{fr:"Un script pilote un vrai navigateur, exactement comme le ferait un utilisateur — mais sans humain derrière le clavier :",
+        en:"A script drives a real browser, exactly like a user would — but with no human at the keyboard:"},
+ items:[
+  {ic:"monitor", l:{fr:"Ouvrir la page d'inscription dans un navigateur",en:"Open the registration page in a browser"}},
+  {ic:"keyboard", l:{fr:"Remplir le champ nom d'utilisateur",en:"Fill in the username field"}},
+  {ic:"keyboard", l:{fr:"Remplir le champ email",en:"Fill in the email field"}},
+  {ic:"keyboard", l:{fr:"Remplir le champ mot de passe",en:"Fill in the password field"}},
+  {ic:"cursor", l:{fr:"Cliquer sur le bouton « S'inscrire »",en:"Click the \"Sign up\" button"}},
+  {ic:"eye", l:{fr:"Vérifier le message de confirmation à l'écran",en:"Check the confirmation message on screen"}},
+  {ic:"database", l:{fr:"Vérifier que l'utilisateur existe bien en base",en:"Check the user really exists in the database"}}
+ ],
+ note:{fr:"C'est le même parcours que le test manuel du tout début de ce module — sauf que cette fois, c'est un script qui clique, pas vous.",
+       en:"This is the same journey as the manual test from the very start of this module — except this time, a script does the clicking, not you."}},
+
+{type:"split",
+ kicker:{fr:"Bénéfice et limites",en:"Benefit and limits"},
+ h2:{fr:"La plus grande confiance, au prix de la fragilité",en:"The greatest confidence, at the cost of fragility"},
+ boxes:[
+  {tag:{fr:"BÉNÉFICE",en:"BENEFIT"}, h:{fr:"Greatest confidence",en:"Greatest confidence"}, p:{fr:"Si le test passe, le parcours complet fonctionne vraiment : du clic de l'utilisateur jusqu'à la base de données.",en:"If the test passes, the whole journey really works: from the user's click all the way to the database."}},
+  {tag:{fr:"LIMITE",en:"LIMIT"}, h:{fr:"Very slow",en:"Very slow"}, p:{fr:"Ouvrir un navigateur, charger chaque page, attendre chaque animation : un scénario prend facilement plusieurs secondes, une suite complète plusieurs minutes.",en:"Opening a browser, loading each page, waiting for each animation: one scenario easily takes several seconds, a full suite several minutes."}},
+  {tag:{fr:"LIMITE",en:"LIMIT"}, h:{fr:"Easy to break",en:"Easy to break"}, p:{fr:"Si le développeur front-end renomme un champ ou une classe CSS utilisée par le test, le scénario échoue — même si l'inscription fonctionne parfaitement pour un vrai utilisateur.",en:"If the front-end developer renames a field or a CSS class the test relies on, the scenario fails — even though registration still works perfectly for a real user."}}
+ ],
+ note:{fr:"Ce n'est pas le code métier qui a cassé, c'est le lien fragile entre le test et l'interface. D'où la règle : peu de tests E2E, réservés aux parcours qui comptent vraiment.",
+       en:"It's not the business logic that broke, it's the fragile link between the test and the interface. Hence the rule: few E2E tests, reserved for journeys that really matter."}},
+
+{type:"split",
+ kicker:{fr:"En résumé",en:"In summary"},
+ h2:{fr:"Trois filets, trois usages",en:"Three safety nets, three uses"},
+ boxes:[
+  {tag:"UNITAIRE", h:{fr:"Une fonction, isolée",en:"One function, isolated"}, p:{fr:"Pour la logique pure : calculs, validations, règles métier. Rapide, à utiliser en masse.",en:"For pure logic: calculations, validation, business rules. Fast, use it in bulk."}},
+  {tag:"INTÉGRATION", h:{fr:"Le code et ses dépendances",en:"The code and its dependencies"}, p:{fr:"Pour vérifier que le code parle bien à la base ou à l'API. Plus lent, réservé aux points de jonction critiques.",en:"To check the code really talks to the database or API. Slower, reserved for critical junction points."}},
+  {tag:"E2E", h:{fr:"L'utilisateur, du début à la fin",en:"The user, start to finish"}, p:{fr:"Pour les parcours qui comptent vraiment (inscription, paiement). Très lent et fragile : à utiliser avec parcimonie.",en:"For journeys that really matter (signup, checkout). Very slow and fragile: use sparingly."}}
+ ],
+ note:{fr:"C'est la pyramide des tests : beaucoup de tests unitaires à la base, quelques tests d'intégration, très peu de tests E2E au sommet.",
+       en:"This is the testing pyramid: lots of unit tests at the base, some integration tests, very few E2E tests at the top."}}
+];
+
+/* ---- deck 3 : séance 1 ---- */
 const S1 = [
 {type:"cover",
  kicker:{fr:"Séance 1 · 1 h 30",en:"Session 1 · 90 min"},
@@ -332,8 +668,8 @@ const S1 = [
 ];
 
 /* ============ RENDU ============ */
-const DECKS={programme:PROGRAMME,seance1:S1};
-let lang='fr', deck='programme', idx={programme:0,seance1:0}, slides=[];
+const DECKS={programme:PROGRAMME,concepts:CONCEPTS,seance1:S1};
+let lang='fr', deck='programme', idx={programme:0,concepts:0,seance1:0}, slides=[];
 const stage=document.getElementById('stage');
 const count=document.getElementById('count'), fill=document.getElementById('fill');
 const prev=document.getElementById('prev'), next=document.getElementById('next');
@@ -377,7 +713,41 @@ function slideHTML(s){
           <div class="solution" hidden><pre class="code">${s.sol}</pre><p class="note">${t(s.solNote)}</p></div></div>
       </div></div>`;
     case "split": return `<div class="wrap"><p class="kicker">${t(s.kicker)}</p><h2>${t(s.h2)}</h2>
-      <div class="cols">${s.boxes.map(b=>`<div class="box"><span class="tag">${b.tag}</span><h3>${t(b.h)}</h3><p>${t(b.p)}</p></div>`).join('')}</div>
+      <div class="cols">${s.boxes.map(b=>`<div class="box"><span class="tag">${t(b.tag)}</span><h3>${t(b.h)}</h3><p>${t(b.p)}</p></div>`).join('')}</div>
+      <p class="note">${t(s.note)}</p></div>`;
+    case "steps": return `<div class="wrap"><p class="kicker">${t(s.kicker)}</p><h2>${t(s.h2)}</h2>
+      <p class="note" style="margin-top:0;margin-bottom:16px">${t(s.intro)}</p>
+      <div class="steps">${s.items.map((it,j)=>`<div class="step"><span class="n">${String(j+1).padStart(2,'0')}</span><span class="ic">${icon(it.ic)}</span><span class="lab">${t(it.l)}</span></div>`).join('')}</div>
+      <p class="note">${t(s.note)}</p></div>`;
+    case "iconcards": return `<div class="wrap"><p class="kicker">${t(s.kicker)}</p><h2>${t(s.h2)}</h2>
+      <div class="icards">${s.items.map(it=>`<div class="icard${s.bad?' bad':''}"><span class="ic">${icon(it.ic)}</span><h3>${t(it.h)}</h3><p>${t(it.p)}</p></div>`).join('')}</div></div>`;
+    case "quote": return `<div class="hook"><p class="kicker">${t(s.kicker)}</p><h2 style="margin-bottom:clamp(30px,6vh,60px)">${t(s.h2t)}</h2>
+      <div class="quote"><p class="mark">"</p><p>${t(s.quote)}</p></div></div>`;
+    case "compare2": return `<div class="wrap"><p class="kicker">${t(s.kicker)}</p><h2>${t(s.h2)}</h2>
+      <div class="cmp">
+        <div class="cmp-col"><h3>${t(s.left)}</h3><div class="cmp-list">${s.rows.map(r=>`<div class="cmp-item bad"><span class="ic">${icon(r.ic)}</span>${t(r.bad)}</div>`).join('')}</div></div>
+        <div class="cmp-col"><h3>${t(s.right)}</h3><div class="cmp-list">${s.rows.map(r=>`<div class="cmp-item good"><span class="ic">${icon(r.ic)}</span>${t(r.good)}</div>`).join('')}</div></div>
+      </div></div>`;
+    case "trio": return `<div class="wrap"><p class="kicker">${t(s.kicker)}</p><h2>${t(s.h2)}</h2>
+      <div class="triocards">${s.cards.map(c=>`<div class="triocard"><span class="num">${c.n}</span><h3>${t(c.t)}</h3><p>${t(c.s)}</p></div>`).join('')}</div></div>`;
+    case "deftype": return `<div class="deftype">
+      <div><p class="kicker">${t(s.kicker)}</p><h2 style="margin-bottom:0">${t(s.title)}</h2>
+        <div class="dqwrap"><p class="mark">"</p><p class="dq">${t(s.quote)}</p></div></div>
+      <div class="depcard"><h4>${t(s.rightTitle)}</h4>
+        ${s.items.map(it=>`<div class="depitem${it.excluded?' excluded':''}"><span class="ic">${icon(it.ic)}</span><span class="lab">${t(it.label)}</span><span class="status">${it.excluded?(lang==='fr'?'exclu':'excluded'):(lang==='fr'?'inclus':'included')}</span></div>`).join('')}
+      </div></div>`;
+    case "chart": return `<div class="wrap"><p class="kicker">${t(s.kicker)}</p><h2>${t(s.h2)}</h2>
+      <div class="chartcard">
+        <svg viewBox="0 0 600 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="30" y1="10" x2="30" y2="230" stroke="currentColor" stroke-width="2" opacity=".35"/>
+          <line x1="30" y1="230" x2="580" y2="230" stroke="currentColor" stroke-width="2" opacity=".35"/>
+          <path d="M40 225 C 220 220, 340 190, 420 120 C 470 75, 500 40, 520 15" stroke="#FFC08A" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <path d="M40 228 C 220 220, 380 205, 520 190" stroke="#3FCB8B" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <text x="430" y="55" fill="currentColor" font-family="Inter" font-weight="600" font-size="15">${t(s.curveTop)}</text>
+          <text x="360" y="215" fill="currentColor" font-family="Inter" font-weight="600" font-size="15">${t(s.curveBottom)}</text>
+        </svg>
+      </div>
+      <div class="chart-stats">${s.stats.map(b=>`<div class="box"><span class="tag">${t(b.tag)}</span><h3>${t(b.h)}</h3><p>${t(b.p)}</p></div>`).join('')}</div>
       <p class="note">${t(s.note)}</p></div>`;
   }
   return '';
@@ -395,8 +765,10 @@ const BUG_SVG=`<svg viewBox="0 0 300 300" fill="none" aria-hidden="true">
 function render(){
   document.documentElement.lang=lang;
   document.getElementById('tab-programme').textContent=t(UI.tabProgramme);
+  document.getElementById('tab-concepts').textContent=t(UI.tabConcepts);
   document.getElementById('tab-seance1').textContent=t(UI.tabSeance);
   document.getElementById('tab-programme').setAttribute('aria-selected',deck==='programme');
+  document.getElementById('tab-concepts').setAttribute('aria-selected',deck==='concepts');
   document.getElementById('tab-seance1').setAttribute('aria-selected',deck==='seance1');
   document.getElementById('btn-fr').setAttribute('aria-pressed',lang==='fr');
   document.getElementById('btn-en').setAttribute('aria-pressed',lang==='en');
@@ -427,6 +799,7 @@ function setDeck(d){deck=d;try{localStorage.setItem('deck-tab',d)}catch(e){};ren
 function setLang(l){lang=l;try{localStorage.setItem('deck-lang',l)}catch(e){};render()}
 
 document.getElementById('tab-programme').onclick=()=>setDeck('programme');
+document.getElementById('tab-concepts').onclick=()=>setDeck('concepts');
 document.getElementById('tab-seance1').onclick=()=>setDeck('seance1');
 document.getElementById('btn-fr').onclick=()=>setLang('fr');
 document.getElementById('btn-en').onclick=()=>setLang('en');
@@ -449,7 +822,7 @@ addEventListener('touchend',e=>{
 },{passive:true});
 
 try{const l=localStorage.getItem('deck-lang');if(l==='en'||l==='fr')lang=l;
-    const d=localStorage.getItem('deck-tab');if(d==='programme'||d==='seance1')deck=d;}catch(e){}
+    const d=localStorage.getItem('deck-tab');if(d==='programme'||d==='concepts'||d==='seance1')deck=d;}catch(e){}
 render();
 </script>
 </body>
